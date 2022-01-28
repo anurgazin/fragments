@@ -13,8 +13,6 @@ process.on('uncaughtException', (err, origin) => {
   throw err;
 });
 
-const unneededVariable = 'This variable is never used';
-
 // If we're going to crash because of an unhandled promise rejection, log it first.
 // https://nodejs.org/api/process.html#event-unhandledrejection
 process.on('unhandledRejection', (reason, promise) => {
