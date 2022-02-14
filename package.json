@@ -12,12 +12,12 @@
     "coverage": "jest -c jest.config.js --runInBand --coverage",
     "lint": "eslint --config .eslintrc.js src/** tests/**",
     "start": "node src/index.js",
-    "dev": "LOG_LEVEL=debug nodemon ./src/index.js --watch src",
-    "debug": "LOG_LEVEL=debug nodemon --inspect=0.0.0.0:9229 ./src/index.js --watch src"
+    "dev": "nodemon ./src/index.js --watch src",
+    "debug": "nodemon --inspect=0.0.0.0:9229 ./src/index.js --watch src"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/yourname/fragments.git"
+    "url": "git+https://github.com/anurgazin/fragments"
   },
   "author": "Aldiyar Nurgazin",
   "license": "UNLICENSED",
@@ -39,6 +39,7 @@
     "http-auth": "^4.1.9",
     "http-auth-passport": "^1.0.6",
     "loglevel": "^1.8.0",
+    "nanoid": "^3.2.0",
     "passport": "^0.5.2",
     "passport-http-bearer": "^1.0.1",
     "pino": "^7.6.3",
