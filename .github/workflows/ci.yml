@@ -95,6 +95,8 @@ jobs:
           DOCKERHUB_REPO: anurgazin/fragments
           # Define an Environment Variable with the current git commit's
           # sha: sha-87f664e01bb5f242faa411e9e7fb9e75a58ae767
+          # Use the `github` context to get this, see:
+          # https://docs.github.com/en/actions/learn-github-actions/contexts#github-context
           SHA_TAG: sha-${{ github.sha }}
         uses: docker/build-push-action@v2
         with:
