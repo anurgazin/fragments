@@ -8,5 +8,5 @@ tests/
 .eslintrc.js
 .git/
 .gitignore
-.prettier*
+.prettier*  
 jest*
