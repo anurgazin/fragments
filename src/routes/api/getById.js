@@ -14,7 +14,7 @@ module.exports = async (req, res) => {
     }
     const fragment = await Fragment.byId(hash(req.user), id);
     var fragmentData = await fragment.getData();
-    if (req.params.id.includes('.html')) {
+    if (req.params.id.includes('.html') && fragment.type == 'text/markdown') {
       res.setHeader('Content-type', 'text/html');
       res.status(200).send(md.render(fragmentData.toString()));
     } else {
