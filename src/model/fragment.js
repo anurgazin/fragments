@@ -22,7 +22,13 @@ class Fragment {
     if (size < 0 || typeof size != 'number') {
       throw new Error(`size should be a number and cannot be negative`);
     }
-    if (type != 'text/plain' && type != 'text/plain; charset=utf-8') {
+    if (
+      type != 'text/plain' &&
+      type != 'text/plain; charset=utf-8' &&
+      type != 'text/markdown' &&
+      type != 'text/html' &&
+      type != 'application/json'
+    ) {
       throw new Error(`this type is not supported`);
     }
     this.id = id || nanoid();
@@ -100,7 +106,7 @@ class Fragment {
       throw new Error('data is not a Buffer');
     }
     this.size = Buffer.byteLength(data);
-    this.save();
+    await this.save();
     return await writeFragmentData(this.ownerId, this.id, data);
   }
 
@@ -142,7 +148,13 @@ class Fragment {
    */
   static isSupportedType(value) {
     // TODO
-    if (value === 'text/plain' || value === 'text/plain; charset=utf-8') {
+    if (
+      value === 'text/plain' ||
+      value === 'text/plain; charset=utf-8' ||
+      value === 'text/markdown' ||
+      value === 'text/html' ||
+      value === 'application/json'
+    ) {
       return true;
     }
     return false;
