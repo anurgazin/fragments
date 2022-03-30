@@ -23,8 +23,8 @@ describe('GET /v1/fragments/:id/info', () => {
       .auth('user3@email.com', 'password3')
       .set('Content-Type', 'text/plain')
       .send(data);
-    var id = JSON.parse(postRes.text).fragments.id;
-    var correct = JSON.parse(postRes.text).fragments;
+    var id = JSON.parse(postRes.text).fragment.id;
+    var correct = JSON.parse(postRes.text).fragment;
     const getRes = await request(app)
       .get(`/v1/fragments/${id}/info`)
       .auth('user3@email.com', 'password3');
