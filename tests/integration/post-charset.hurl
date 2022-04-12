@@ -1,10 +1,9 @@
-# tests/integration/post-fragments.hurl
-# Authenticated POST to /v1/fragments
+# Authenticated POST to /v1/fragments with charset
 POST http://localhost:8080/v1/fragments
 # user1@email.com:password1
 Authorization: Basic dXNlcjFAZW1haWwuY29tOnBhc3N3b3JkMQ==
 # We're sending a plain text fragment
-Content-Type: text/plain
+Content-Type: text/plain; charset=utf-8
 # Body of the request goes in ```...``` when it's a string
 ```This is a fragment!```
 
@@ -23,7 +22,7 @@ jsonpath "$.fragment.ownerId" matches "^[0-9a-fA-F]+$"
 # You could also write a regex for this and use matches
 jsonpath "$.fragment.created" isString
 jsonpath "$.fragment.updated" isString
-jsonpath "$.fragment.type" == "text/plain"
+jsonpath "$.fragment.type" == "text/plain; charset=utf-8"
 # 19 is the length of our fragment data: 'This is a fragment!'
 jsonpath "$.fragment.size" == 19
 # Capture the Location URL into a variable named `url`
@@ -35,12 +34,7 @@ GET {{url}}
 Authorization: Basic dXNlcjFAZW1haWwuY29tOnBhc3N3b3JkMQ==
 
 HTTP/1.1 200
-Content-Type: text/plain
+Content-Type: text/plain; charset=utf-8
 Content-Length: 19
 [Asserts]
 body == "This is a fragment!"
-
-
-
-
-
