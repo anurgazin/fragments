@@ -22,7 +22,7 @@ module.exports = async (req, res) => {
         //logger.info(extension);
         type = extension;
       } else if (extension == false) {
-        type = fragment.type;
+        type = fragment.mimeType;
         //logger.info(type);
       }
       var data = fragment.convertData(fragmentData, type);
