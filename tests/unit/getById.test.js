@@ -32,4 +32,51 @@ describe('GET /v1/fragments/:id', () => {
   });
 
   // TODO: we'll need to add tests to check the contents of the fragments array later
+
+  // Using a valid username/password pair with incorrect fragment id
+  test('authenticated users get a fragments array', async () => {
+    const data = Buffer.from('This is fragment');
+    await request(app)
+      .post('/v1/fragments')
+      .auth('user3@email.com', 'password3')
+      .set('Content-Type', 'text/plain')
+      .send(data);
+    var id = 1;
+    const getRes = await request(app)
+      .get(`/v1/fragments/${id}`)
+      .auth('user3@email.com', 'password3');
+    expect(getRes.statusCode).toBe(404);
+    //expect(getRes.text).toBe(data.toString());
+  });
+
+  // Using a valid username/password pair with incorrect extension
+  test('authenticated users get a fragments array', async () => {
+    const data = Buffer.from('This is fragment');
+    const postRes = await request(app)
+      .post('/v1/fragments')
+      .auth('user3@email.com', 'password3')
+      .set('Content-Type', 'text/plain')
+      .send(data);
+    var id = JSON.parse(postRes.text).fragment.id;
+    const getRes = await request(app)
+      .get(`/v1/fragments/${id}.html`)
+      .auth('user3@email.com', 'password3');
+    expect(getRes.statusCode).toBe(415);
+    //expect(getRes.text).toBe(data.toString());
+  });
+  // Using a valid username/password pair with correct extension
+  test('authenticated users get a fragments array', async () => {
+    const data = Buffer.from('This is fragment');
+    const postRes = await request(app)
+      .post('/v1/fragments')
+      .auth('user3@email.com', 'password3')
+      .set('Content-Type', 'text/markdown')
+      .send(data);
+    var id = JSON.parse(postRes.text).fragment.id;
+    const getRes = await request(app)
+      .get(`/v1/fragments/${id}.html`)
+      .auth('user3@email.com', 'password3');
+    expect(getRes.statusCode).toBe(200);
+    //expect(getRes.text).toBe(data.toString());
+  });
 });

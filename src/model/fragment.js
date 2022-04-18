@@ -1,5 +1,11 @@
 // Use https://www.npmjs.com/package/nanoid to create unique IDs
 const { nanoid } = require('nanoid');
+
+// for markdown conversion
+const md = require('markdown-it')();
+// for image conversion
+const sharp = require('sharp');
+
 // Use https://www.npmjs.com/package/content-type to create/parse Content-Type headers
 const contentType = require('content-type');
 
@@ -27,7 +33,11 @@ class Fragment {
       type != 'text/plain; charset=utf-8' &&
       type != 'text/markdown' &&
       type != 'text/html' &&
-      type != 'application/json'
+      type != 'application/json' &&
+      type != 'image/png' &&
+      type != 'image/jpeg' &&
+      type != 'image/webp' &&
+      type != 'image/gif'
     ) {
       throw new Error(`this type is not supported`);
     }
@@ -138,7 +148,31 @@ class Fragment {
    */
   get formats() {
     // TODO
-    return [this.mimeType];
+    const plainCon = ['text/plain'];
+    const mdCon = ['text/plain', 'text/markdown', 'text/html'];
+    const htmlCon = ['text/html', 'text/plain'];
+    const jsonCon = ['application/json', 'text/plain'];
+    const imgCon = ['image/png', 'image/jpeg', 'image/gif', 'image/webp'];
+    switch (this.mimeType) {
+      case 'text/plain':
+        return plainCon;
+      case 'text/markdown':
+        return mdCon;
+      case 'text/html':
+        return htmlCon;
+      case 'application/json':
+        return jsonCon;
+      case 'image/png':
+        return imgCon;
+      case 'image/jpeg':
+        return imgCon;
+      case 'image/gif':
+        return imgCon;
+      case 'image/webp':
+        return imgCon;
+      default:
+        return [this.mimeType];
+    }
   }
 
   /**
@@ -153,11 +187,36 @@ class Fragment {
       value === 'text/plain; charset=utf-8' ||
       value === 'text/markdown' ||
       value === 'text/html' ||
-      value === 'application/json'
+      value === 'application/json' ||
+      value === 'image/png' ||
+      value === 'image/jpeg' ||
+      value === 'image/webp' ||
+      value === 'image/gif'
     ) {
       return true;
     }
     return false;
+  }
+  convertData(data, type) {
+    switch (type) {
+      case 'text/html':
+        if (this.type === 'text/markdown') {
+          return md.render(data.toString());
+        }
+        return data;
+      case 'image/png':
+        return sharp(data).toFormat('png');
+      case 'image/jpeg':
+        return sharp(data).toFormat('jpeg');
+      case 'image/gif':
+        return sharp(data).toFormat('gif');
+      case 'image/webp':
+        return sharp(data).toFormat('webp');
+      case 'text/plain':
+        return data.toString();
+      default:
+        return data;
+    }
   }
 }
 

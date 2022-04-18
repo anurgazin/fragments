@@ -43,12 +43,14 @@
     "http-auth-passport": "^1.0.6",
     "loglevel": "^1.8.0",
     "markdown-it": "^12.3.2",
+    "mime-types": "^2.1.35",
     "nanoid": "^3.2.0",
     "passport": "^0.5.2",
     "passport-http-bearer": "^1.0.1",
     "pino": "^7.6.3",
     "pino-http": "^6.5.0",
     "pino-pretty": "^7.3.0",
+    "sharp": "^0.30.3",
     "stoppable": "^1.1.0"
   }
 }

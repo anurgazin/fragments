@@ -83,8 +83,9 @@ Authorization: Basic dXNlcjFAZW1haWwuY29tOnBhc3N3b3JkMQ==
 HTTP/1.1 200
 [Asserts]
 # Our fragment ids use https://www.npmjs.com/package/nanoid
-jsonpath "$.fragments[0]" == "{{fragment1_id}}"
-jsonpath "$.fragments[1]" == "{{fragment2_id}}"
+
+jsonpath "$.fragments" includes "{{fragment1_id}}"
+jsonpath "$.fragments" includes "{{fragment2_id}}"
 
 
 # Try to Delete the first fragment
@@ -107,4 +108,4 @@ Authorization: Basic dXNlcjFAZW1haWwuY29tOnBhc3N3b3JkMQ==
 HTTP/1.1 200
 [Asserts]
 # Our fragment ids use https://www.npmjs.com/package/nanoid
-jsonpath "$.fragments[0]" != "{{fragment1_id}}"
+jsonpath "$.fragments" not includes "{{fragment1_id}}"
