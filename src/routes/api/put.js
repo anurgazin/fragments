@@ -16,6 +16,7 @@ module.exports = async (req, res) => {
         })
       );
     } else {
+      logger.info('ERROR IS HERE');
       res
         .status(400)
         .json(createErrorResponse(400, "A fragment's type can not be changed after it is created"));
