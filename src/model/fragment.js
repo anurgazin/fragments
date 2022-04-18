@@ -42,8 +42,8 @@ class Fragment {
       throw new Error(`this type is not supported`);
     }
     this.id = id || nanoid();
-    this.created = created.toISOString();
-    this.updated = updated.toISOString();
+    this.created = created || created.toISOString();
+    this.updated = updated || updated.toISOString();
     this.ownerId = ownerId;
     this.type = type;
     this.size = size;
@@ -72,7 +72,7 @@ class Fragment {
     if (!ret) {
       throw new Error('Is not found');
     }
-    return ret;
+    return new Fragment(ret);
   }
 
   /**
