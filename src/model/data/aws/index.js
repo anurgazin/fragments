@@ -171,7 +171,7 @@ async function deleteFragment(ownerId, id) {
     Key: `${ownerId}/${id}`,
   };
   const params2 = {
-    TableName: process.nextTick.AWS_DYNAMODB_TABLE_NAME,
+    TableName: process.env.AWS_DYNAMODB_TABLE_NAME,
     Key: { ownerId: { S: ownerId }, id: { S: id } },
   };
   const command = new DeleteObjectCommand(params);
