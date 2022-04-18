@@ -18,8 +18,8 @@ module.exports = async (req, res) => {
     } else {
       logger.info('ERROR IS HERE');
       res
-        .status(400)
-        .json(createErrorResponse(400, "A fragment's type can not be changed after it is created"));
+        .status(406)
+        .json(createErrorResponse(406, "A fragment's type can not be changed after it is created"));
     }
   } catch (error) {
     res.status(404).json(createErrorResponse(404, error));

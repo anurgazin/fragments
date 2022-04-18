@@ -14,6 +14,7 @@ module.exports = async (req, res) => {
     id = req.params.id.split('.').slice(0, -1).join('.');
   }
   try {
+    logger.info('GETBYID STARTS');
     const fragment = await Fragment.byId(req.user, id);
     var fragmentData = await fragment.getData();
     var type;
@@ -22,6 +23,8 @@ module.exports = async (req, res) => {
         //logger.info(extension);
         type = extension;
       } else if (extension == false) {
+        logger.info('NO EXTENSION');
+
         type = fragment.mimeType;
         //logger.info(type);
       }
