@@ -110,7 +110,7 @@ async function readFragmentData(ownerId, id) {
 
   // Create a GET Object command to send to S3
   const command = new GetObjectCommand(params);
-
+  logger.info('READ FRAGMENT DATA: GET COMMAND IS SET');
   try {
     // Get the object from the Amazon S3 bucket. It is returned as a ReadableStream.
     const data = await s3Client.send(command);
