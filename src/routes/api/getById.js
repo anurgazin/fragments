@@ -20,7 +20,7 @@ module.exports = async (req, res) => {
     var type;
     try {
       if (fragment.formats.includes(extension)) {
-        //logger.info(extension);
+        logger.info(extension);
         type = extension;
       } else if (extension == false) {
         logger.info('NO EXTENSION');
@@ -31,21 +31,13 @@ module.exports = async (req, res) => {
       var data = fragment.convertData(fragmentData, type);
       //logger.info(md.render(data.toString()));
       res.setHeader('Content-type', type);
-      logger.info('I AM HERE');
+      logger.info('BEFORE SEND');
       res.status(200).send(data);
     } catch (error) {
       res
         .status(415)
         .json(createErrorResponse(415, 'Can not convert fragment to the required extension'));
     }
-
-    // if (req.params.id.includes('.html') && fragment.type == 'text/markdown') {
-    //   res.setHeader('Content-type', 'text/html');
-    //   res.status(200).send(md.render(fragmentData.toString()));
-    // } else {
-    //   res.setHeader('Content-type', fragment.type);
-    //   res.status(200).send(fragmentData);
-    // }
   } catch (error) {
     res.status(404).json(createErrorResponse(404, error));
   }

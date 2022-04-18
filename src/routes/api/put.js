@@ -8,7 +8,9 @@ module.exports = async (req, res) => {
     const fragment = await Fragment.byId(req.user, req.params.id);
     logger.info('I am here');
     if (fragment.mimeType == req.get('Content-Type')) {
+      logger.info('Mime type is correct');
       await fragment.setData(req.body);
+      logger.info('Setting is normal');
       res.status(200).json(
         createSuccessResponse({
           status: 'ok',
@@ -18,8 +20,8 @@ module.exports = async (req, res) => {
     } else {
       logger.info('ERROR IS HERE');
       res
-        .status(406)
-        .json(createErrorResponse(406, "A fragment's type can not be changed after it is created"));
+        .status(400)
+        .json(createErrorResponse(400, "A fragment's type can not be changed after it is created"));
     }
   } catch (error) {
     res.status(404).json(createErrorResponse(404, error));
