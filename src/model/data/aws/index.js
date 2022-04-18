@@ -172,14 +172,14 @@ async function deleteFragment(ownerId, id) {
   };
   const params2 = {
     TableName: process.nextTick.AWS_DYNAMODB_TABLE_NAME,
-    Key: { ownerId, id },
+    Key: { ownerId: { S: ownerId }, id: { S: id } },
   };
   const command = new DeleteObjectCommand(params);
   const commandDynamoDB = new DeleteCommand(params2);
   try {
     // Use our client to send the command
-    const ret = await s3Client.send(command);
-    await ddbDocClient.send(commandDynamoDB);
+    await s3Client.send(command);
+    const ret = await ddbDocClient.send(commandDynamoDB);
     return ret;
   } catch (err) {
     // If anything goes wrong, log enough info that we can debug
