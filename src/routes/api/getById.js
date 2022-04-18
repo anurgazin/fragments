@@ -16,6 +16,7 @@ module.exports = async (req, res) => {
   try {
     logger.info('GETBYID STARTS');
     const fragment = await Fragment.byId(req.user, id);
+    logger.info('AFTER BY ID');
     var fragmentData = await fragment.getData();
     var type;
     try {
