@@ -7,7 +7,7 @@ module.exports = async (req, res) => {
   try {
     const fragment = await Fragment.byId(req.user, req.params.id);
     logger.info('I am here');
-    if (fragment.mimeType == req.get('Content-Type')) {
+    if (fragment.type === req.get('Content-Type')) {
       logger.info('Mime type is correct');
       await fragment.setData(req.body);
       logger.info('Setting is normal');
