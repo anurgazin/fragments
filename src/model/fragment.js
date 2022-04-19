@@ -42,7 +42,7 @@ class Fragment {
       throw new Error(`this type is not supported`);
     }
     this.id = id || nanoid();
-    this.created = created || new Date().toLocaleString();
+    this.created = created || created.toLocaleString();
     this.updated = updated || updated.toISOString();
     this.ownerId = ownerId;
     this.type = type;
