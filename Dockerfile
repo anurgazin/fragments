@@ -11,7 +11,7 @@ WORKDIR /app
 COPY package*.json ./
 
 # Install node dependencies defined in package-lock.json
-# STEP 20: Installing only production dependencies
+# STEP 20: Installing only production dependencies 
 RUN npm ci --only=production
 
 
